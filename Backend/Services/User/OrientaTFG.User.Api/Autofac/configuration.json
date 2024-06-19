@@ -1,0 +1,76 @@
+{
+  "components": [
+    // OrientaTFG.User.Core
+    {
+      "type": "OrientaTFG.User.Core.UserManager, OrientaTFG.User.Core",
+      "services": [
+        {
+          "type": "OrientaTFG.User.Core.IUserManager, OrientaTFG.User.Core"
+        }
+      ],
+      "injectProperties": true,
+      "instanceScope": "per-lifetime-scope"
+    },
+    {
+      "type": "OrientaTFG.User.Core.Utils.PasswordEncrypter.PasswordEncrypter, OrientaTFG.User.Core",
+      "services": [
+        {
+          "type": "OrientaTFG.User.Core.Utils.PasswordEncrypter.IPasswordEncrypter, OrientaTFG.User.Core"
+        }
+      ],
+      "injectProperties": true,
+      "instanceScope": "per-lifetime-scope"
+    },
+    {
+      "type": "OrientaTFG.User.Core.Utils.TokenGenerator.TokenGenerator, OrientaTFG.User.Core",
+      "services": [
+        {
+          "type": "OrientaTFG.User.Core.Utils.TokenGenerator.ITokenGenerator, OrientaTFG.User.Core"
+        }
+      ],
+      "injectProperties": true,
+      "instanceScope": "per-lifetime-scope"
+    },
+    {
+      "type": "OrientaTFG.User.Core.Utils.StorageClient.StorageClient, OrientaTFG.User.Core",
+      "services": [
+        {
+          "type": "OrientaTFG.User.Core.Utils.StorageClient.IStorageClient, OrientaTFG.User.Core"
+        }
+      ],
+      "injectProperties": true,
+      "instanceScope": "per-lifetime-scope"
+    },
+    // OrientaTFG.Shared.Infrastructure
+    {
+      "type": "OrientaTFG.Shared.Infrastructure.Repository.Repository`1[[OrientaTFG.Shared.Infrastructure.Model.Student, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure",
+      "services": [
+        {
+          "type": "OrientaTFG.Shared.Infrastructure.Repository.IRepository`1[[OrientaTFG.Shared.Infrastructure.Model.Student, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure"
+        }
+      ],
+      "injectProperties": true,
+      "instanceScope": "per-lifetime-scope"
+    },
+    {
+      "type": "OrientaTFG.Shared.Infrastructure.Repository.Repository`1[[OrientaTFG.Shared.Infrastructure.Model.Tutor, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure",
+      "services": [
+        {
+          "type": "OrientaTFG.Shared.Infrastructure.Repository.IRepository`1[[OrientaTFG.Shared.Infrastructure.Model.Tutor, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure"
+        }
+      ],
+      "injectProperties": true,
+      "instanceScope": "per-lifetime-scope"
+    },
+    {
+      "type": "OrientaTFG.Shared.Infrastructure.Repository.Repository`1[[OrientaTFG.Shared.Infrastructure.Model.Administrator, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure",
+      "services": [
+        {
+          "type": "OrientaTFG.Shared.Infrastructure.Repository.IRepository`1[[OrientaTFG.Shared.Infrastructure.Model.Administrator, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure"
+        }
+      ],
+      "injectProperties": true,
+      "instanceScope": "per-lifetime-scope"
+    }
+  ]
+}

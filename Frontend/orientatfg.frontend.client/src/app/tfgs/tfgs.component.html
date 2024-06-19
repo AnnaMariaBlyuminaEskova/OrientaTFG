@@ -1,0 +1,69 @@
+<header class="header-container">
+  OrientaTFG
+  <div class="profile-container" (click)="toggleDropdown()">
+    <img loading="lazy"
+         src="https://cdn.builder.io/api/v1/image/assets/TEMP/590c1e00ae7ac4f0e11b47c431fb1dec884ded335967c2b6fd103032e5819b46?apiKey=6f8563fec18e43e79b319603a371d48b&"
+         alt="Profile Photo"
+         class="profile-photo" />
+    <div [class.show]="isDropdownOpen" class="dropdown-menu">
+      <a href="#profile">
+        <img src="https://img.icons8.com/ios-glyphs/20/000000/user.png" alt="Profile Icon" class="icon" /> Perfil
+      </a>
+      <a href="#logout">
+        <img src="https://img.icons8.com/ios-glyphs/20/000000/exit.png" alt="Logout Icon" class="icon" /> Cerrar sesión
+      </a>
+    </div>
+  </div>
+</header>
+<section class="content-section">
+  <table class="info-table">
+    <tr>
+      <th>Nombre</th>
+      <th>TFG</th>
+      <th>Tareas pendientes de puntuar</th>
+      <th>Tareas en progreso</th>
+      <th>Subtareas pendientes</th>
+    </tr>
+    <tbody>
+      <tr class="info-row">
+        <td>
+          <div class="personal-info">
+            <img loading="lazy"
+                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/590c1e00ae7ac4f0e11b47c431fb1dec884ded335967c2b6fd103032e5819b46?apiKey=6f8563fec18e43e79b319603a371d48b&"
+                 alt="Alba Martínez Photo"
+                 class="student-photo" />
+            <h4 class="student-name">Alba Martínez</h4>
+          </div>
+        </td>
+        <td>
+          Dessarrollo de una app web para la gestión de pacientes
+        </td>
+        <td>1</td>
+        <td>1</td>
+        <td>3 subtareas (20 horas)</td>
+      </tr>
+      <tr class="info-row">
+        <td>
+          <div class="personal-info">
+            <img loading="lazy"
+                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/c58e0a8580496f4d1c3aede541aa571d768456d369e2a66ab19d5544522b1d7d?apiKey=6f8563fec18e43e79b319603a371d48b&"
+                 alt="Juan Pérez Photo"
+                 class="student-photo" />
+            <h4 class="student-name">Juan Pérez</h4>
+          </div>
+        </td>
+        <td>
+          Análisis y Mejora de la Seguridad en Redes Inalámbricas
+        </td>
+        <td>0</td>
+        <td>0</td>
+        <td>0 subtareas (0 horas)</td>
+      </tr>
+    </tbody>
+  </table>
+  <button class="add-tfg">+ Añadir nuevo TFG</button>
+</section>
+<footer class="footer-container"></footer>
+
+
+

@@ -1,0 +1,35 @@
+<header class="header-container">
+  OrientaTFG
+</header>
+
+<section class="content-section">
+
+  <img loading="lazy" src="../assets/images/background.jpg" class="background-image" alt="" />
+  <form class="form-container" (ngSubmit)="onSubmit(f)" #f="ngForm">
+
+    <div class="input-container">
+
+      <label for="emailInput" class="form-label">Correo electrónico</label>
+      <input type="email" id="emailInput" class="input email-input" aria-label="Correo electrónico" name="email" ngModel />
+
+      <label for="passwordInput" class="form-label">Contraseña</label>
+      <input type="password" id="passwordInput" class="input password-input" aria-label="Contraseña" name="password" ngModel />
+
+      <div class="registration-info">
+        ¿Aún no tienes cuenta? Registrate aquí
+      </div>
+    </div>
+
+    <div class="error-space">
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </div>
+
+    <button class="access-button" type="submit">ACCEDER</button>
+  </form>
+
+</section>
+
+<footer class="footer-container">
+</footer>
