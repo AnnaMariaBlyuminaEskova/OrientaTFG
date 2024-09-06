@@ -17,7 +17,7 @@ public class LogInResponseDTO : ErrorMessageDTO
     /// <summary>
     /// Gets or sets the user's profile picture
     /// </summary>
-    public byte[] ProfilePicture { get; set; }
+    public string ProfilePicture { get; set; }
 
     /// <summary>
     /// Gets or sets the user's role

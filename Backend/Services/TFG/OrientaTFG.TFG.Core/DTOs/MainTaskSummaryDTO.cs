@@ -18,6 +18,11 @@ public class MainTaskSummaryDTO
     public int Order { get; set; }
 
     /// <summary>
+    /// Gets or sets the main task's description
+    /// </summary>
+    public string Description { get; set; }
+
+    /// <summary>
     /// Gets or sets the main task's deadline
     /// </summary>
     public DateTime Deadline { get; set; }

@@ -1,0 +1,21 @@
+.success-container {
+  background-color: #0C94A61A;
+  color: #0C94A6;
+  border: 2px solid #0C94A6;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+  .success-container h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .sucess-container p {
+    font-size: 18px;
+    margin: 0;
+  }

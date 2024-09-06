@@ -1,0 +1,27 @@
+<header class="header-container">
+  OrientaTFG
+  <div *ngIf="token" class="profile-container" (click)="toggleDropdown()">
+
+    <img loading="lazy" [src]="profilePicture" alt="Profile Photo" class="profile-photo" />
+
+    <div [class.show]="isDropdownOpen" class="dropdown-menu">
+
+      <a *ngIf="userRole === 'Estudiante'" (click)="navigateToChat()">
+        <i class="fa-solid fa-comments" style="color: green; font-size: 18px; margin-right: 5px;"></i> Chat
+      </a>
+
+      <a *ngIf="userRole !== 'Administrador'" (click)="navigateToProfile()">
+        <i class="fa-solid fa-user" style="color: #0C94A6; font-size: 18px; margin-right: 5px;"></i> Perfil
+      </a>
+
+      <a href="#" (click)="logout()">
+        <i class="fa-solid fa-arrow-right-from-bracket" style="color: red; font-size: 18px; margin-right: 5px;"></i> Cerrar sesión
+      </a>
+
+    </div>
+
+  </div>
+</header>
+
+
+

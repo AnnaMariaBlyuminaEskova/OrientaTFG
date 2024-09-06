@@ -1,0 +1,67 @@
+<app-header></app-header>
+
+<section class="content-section ">
+
+  <i class="fa-solid fa-left-long" style="font-size: 32px; margin-bottom: 5px; align-self: flex-start;" (click)="goBack()"></i>
+
+  <div *ngIf="isLoading" class="spinner-container">
+    <div class="spinner"></div>
+  </div>
+
+  <form *ngIf="!isLoading" class="form-container" (ngSubmit)="onSubmit(f)" #f="ngForm">
+
+    <div class="input-container">
+      <label for="titleInput" class="form-label">Título</label>
+      <input type="text" id="titleInput" class="input title-input" name="title" [(ngModel)]="title" required minlength="5" maxlength="50" #titleModel="ngModel" />
+      <div *ngIf="titleModel.invalid && titleModel.touched" class="error-message-form">
+        <div *ngIf="titleModel.errors?.['required']">* El título es obligatorio</div>
+        <div *ngIf="titleModel.errors?.['minlength']">* El título debe tener al menos 5 caracteres</div>
+        <div *ngIf="titleModel.errors?.['maxlength']">* El título no puede tener más de 50 caracteres</div>
+      </div>
+
+      <label for="studentInput" class="form-label">
+        {{ isEditMode ? 'Estudiante' : 'Seleccione al estudiante' }}
+      </label>
+
+      <div *ngIf="selectedStudent" class="selected-student">
+        <img [src]="selectedStudent.profilePicture" alt="Selected Student Photo">
+        <span>{{ selectedStudent.name }} {{ selectedStudent.surname }}</span>
+        <span *ngIf="!isEditMode" class="remove-icon" (click)="deselectStudent()">×</span>
+      </div>
+
+      <input *ngIf="!selectedStudent && !isEditMode" type="text" id="studentInput" class="input student-input" #studentInput (input)="filterStudents(studentInput.value)" autocomplete="off" />
+
+      <div *ngIf="filteredStudents.length > 0 && !isEditMode" class="student-list">
+        <div class="student-item"
+             *ngFor="let student of filteredStudents"
+             [ngClass]="{'disabled': student.tfg}"
+             (click)="!student.tfg && selectStudent(student)">
+          <img [src]="student.profilePicture" alt="Student Photo" class="student-image">
+          <span>{{ student.name }} {{ student.surname }}  ({{ student.tfg ? 'TFG asignado' : 'Disponible' }})</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="message-space">
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      <div *ngIf="successMessage" class="success-message">
+        {{ successMessage }}
+      </div>
+    </div>
+
+    <button *ngIf="!isLoading" class="custom-button centered" type="submit">
+      {{ isEditMode ? 'Actualizar' : 'Crear' }}
+    </button>
+  </form>
+
+</section>
+
+<app-footer></app-footer>
+
+
+
+
+

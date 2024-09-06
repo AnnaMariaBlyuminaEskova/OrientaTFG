@@ -16,7 +16,9 @@ public class OrientaTFGContext : DbContext
     public DbSet<SubTaskStatus> SubTaskStatus { get; set; }
     public DbSet<TFG> TFGs { get; set; }
     public DbSet<Tutor> Tutors { get; set; }
-
+    public DbSet<StudentAlertConfiguration> StudentsAlertConfigurations { get; set; }
+    public DbSet<Comment> Comments { get; set; }
+    public DbSet<Message> Messages { get; set; }
     #endregion
 
     /// <summary>

@@ -21,6 +21,8 @@ public class User : BaseModel
     /// <summary>
     /// Gets or sets the the user's profile picture name
     /// </summary>
+    [StringLength(300)]
+    [Required]
     public string ProfilePictureName { get; set; }
 
     /// <summary>
@@ -36,16 +38,4 @@ public class User : BaseModel
     [StringLength(300)]
     [Required]
     public string Password { get; set; }
-
-    /// <summary>
-    /// Gets or sets if the user's log in is blocked
-    /// </summary>
-    [Required]
-    public int LogInRetries { get; set; }
-
-    /// <summary>
-    /// Gets or sets if the user's log in is blocked
-    /// </summary>
-    [Required]
-    public bool LogInBlocked { get; set; }
 }

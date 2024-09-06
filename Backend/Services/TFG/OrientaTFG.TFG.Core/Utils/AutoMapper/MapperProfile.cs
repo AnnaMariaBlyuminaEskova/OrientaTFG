@@ -13,5 +13,9 @@ public class MapperProfile : Profile
         CreateMap<TFGAssignmentDTO, TFGModel>();
         CreateMap<CreateMainTaskDTO, MainTask>()
             .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => (int)MainTaskStatusEnum.Pendiente));
+        CreateMap<NewSubTaskDTO, SubTask>()
+            .ForMember(dest => dest.StatusId, opt => opt.MapFrom(src => (int)SubTaskStatusEnum.Pendiente));
+        CreateMap<Shared.Infrastructure.Model.Message, MessageDTO>();
+        //CreateMap<CreateCommentDTO, Comment>();
     }
 }

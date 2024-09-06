@@ -1,0 +1,11 @@
+.description-input {
+  border: 2px solid rgba(12, 148, 166, 1);
+  background-color: rgba(12, 148, 166, 0.1);
+  font-size: 1rem;
+  width: 100%;
+  margin-bottom: 1em;
+  height: 5em;
+  width: 100%;
+  resize: none;
+  font-family: Arial;
+}

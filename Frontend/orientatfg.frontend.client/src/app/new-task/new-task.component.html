@@ -1,0 +1,65 @@
+<app-header></app-header>
+
+<section class="content-section">
+
+  <i class="fa-solid fa-left-long" style="font-size: 32px; margin-bottom: 5px; align-self: flex-start;" (click)="goBack()"></i>
+
+  <form class="form-container" (ngSubmit)="onSubmit(f)" #f="ngForm">
+
+    <div class="input-container">
+      <label for="titleInput" class="form-label">Título</label>
+      <input type="text" id="titleInput" class="input title-input" name="title" ngModel [(ngModel)]="task.name" required minlength="5" maxlength="100" #title="ngModel" />
+      <div *ngIf="title.invalid && title.touched" class="error-message-form">
+        <div *ngIf="title.errors?.['required']">* El título es obligatorio</div>
+        <div *ngIf="title.errors?.['minlength']">* El título debe tener al menos 5 caracteres</div>
+        <div *ngIf="title.errors?.['maxlength']">* El título no puede tener más de 100 caracteres</div>
+      </div>
+
+      <label for="dateInput" class="form-label">Fecha de entrega</label>
+      <input type="datetime-local" id="dateInput" class="input date-input" name="date" ngModel [(ngModel)]="task.deadline" required #date="ngModel" />
+      <div *ngIf="date.invalid && date.touched" class="error-message-form">
+        <div *ngIf="date.errors?.['required']">* La fecha de entrega es obligatoria</div>
+      </div>
+
+      <label for="pointsInput" class="form-label">Puntuación máxima</label>
+      <input type="number" id="pointsInput" class="input points-input" name="points" ngModel [(ngModel)]="task.maximumPoints" required min="1" #points="ngModel" />
+      <div *ngIf="points.invalid && points.touched" class="error-message-form">
+        <div *ngIf="points.errors?.['required']">* La puntuación es obligatoria</div>
+        <div *ngIf="points.errors?.['min']">* La puntuación debe ser mayor a 0</div>
+      </div>
+
+      <label for="descriptionInput" class="form-label">Descripción</label>
+      <textarea id="descriptionInput" class="description-input" name="description" ngModel [(ngModel)]="task.description" required minlength="5" maxlength="1000" #description="ngModel"></textarea>
+      <div *ngIf="description.invalid && description.touched" class="error-message-form">
+        <div *ngIf="description.errors?.['required']">* La descripción es obligatoria</div>
+        <div *ngIf="description.errors?.['minlength']">* La descripción debe tener al menos 5 caracteres</div>
+        <div *ngIf="description.errors?.['maxlength']">* La descripción no puede tener más de 1000 caracteres</div>
+      </div>
+
+    </div>
+
+    <div class="message-space">
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      <div *ngIf="successMessage" class="success-message">
+        {{ successMessage }}
+      </div>
+    </div>
+
+    <button *ngIf="!isLoading" class="custom-button centered" type="submit">
+      {{ isEditMode ? 'Actualizar' : 'Crear' }}
+    </button>
+    <div *ngIf="isLoading" class="spinner centered">
+    </div>
+
+  </form>
+</section>
+
+<app-footer></app-footer>
+
+
+
+
+
+

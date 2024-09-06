@@ -1,1 +1,3 @@
 C:\Users\ablyumina\source\repos\OrientaTFG\Frontend\orientatfg.frontend.client\obj\Debug\orientatfg.frontend.client.esproj.CoreCompileInputs.cache
+C:\Users\annae\OneDrive\Escritorio\TFG NUEVO\TFG\OrientaTFG\Frontend\orientatfg.frontend.client\obj\Debug\orientatfg.frontend.client.esproj.CoreCompileInputs.cache
+C:\Users\ablyumina\source\repos\AnnaMariaBlyuminaEskova\OrientaTFG\Frontend\orientatfg.frontend.client\obj\Debug\orientatfg.frontend.client.esproj.CoreCompileInputs.cache

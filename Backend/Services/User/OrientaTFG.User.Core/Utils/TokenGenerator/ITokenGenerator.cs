@@ -10,5 +10,5 @@ public interface ITokenGenerator
     /// <param name="secretKey">The secret key</param>
     /// <param name="expiryMinutes">The token expiration minutes</param>
     /// <returns>The generated token</returns>
-    string Generate(string userId, string userRole, string secretKey, int expiryMinutes = 60);
+    string Generate(int userId, string userRole, string secretKey, int expiryMinutes = 60);
 }

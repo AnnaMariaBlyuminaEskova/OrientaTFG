@@ -63,4 +63,10 @@ public class SubTask : BaseModel
     [ForeignKey(nameof(StatusId))]
     [InverseProperty(nameof(Model.SubTaskStatus.SubTasks))]
     public virtual SubTaskStatus SubTaskStatus { get; set; } = null!;
+
+    /// <summary>
+    /// Gets or sets the sub task's comments
+    /// </summary>
+    [InverseProperty(nameof(SubTask))]
+    public virtual ICollection<Comment>? Comments { get; set; }
 }

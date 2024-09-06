@@ -17,7 +17,7 @@ namespace OrientaTFG.Shared.Infrastructure.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.4")
+                .HasAnnotation("ProductVersion", "8.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -35,17 +35,6 @@ namespace OrientaTFG.Shared.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<bool>("LogInBlocked")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("LogInRetries")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasMaxLength(300)
@@ -53,16 +42,50 @@ namespace OrientaTFG.Shared.Infrastructure.Migrations
 
                     b.Property<string>("ProfilePictureName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Administrator", "User");
+                });
+
+            modelBuilder.Entity("OrientaTFG.Shared.Infrastructure.Model.Comment", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Files")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("MainTaskId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("SubTaskId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MainTaskId");
+
+                    b.HasIndex("SubTaskId");
+
+                    b.ToTable("Comments", "TFG");
                 });
 
             modelBuilder.Entity("OrientaTFG.Shared.Infrastructure.Model.Department", b =>
@@ -145,6 +168,36 @@ namespace OrientaTFG.Shared.Infrastructure.Migrations
                     b.ToTable("MainTaskStatus", "Master");
                 });
 
+            modelBuilder.Entity("OrientaTFG.Shared.Infrastructure.Model.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("TFGId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TFGId");
+
+                    b.ToTable("Messages", "TFG");
+                });
+
             modelBuilder.Entity("OrientaTFG.Shared.Infrastructure.Model.Student", b =>
                 {
                     b.Property<int>("Id")
@@ -158,12 +211,6 @@ namespace OrientaTFG.Shared.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<bool>("LogInBlocked")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("LogInRetries")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -176,7 +223,8 @@ namespace OrientaTFG.Shared.Infrastructure.Migrations
 
                     b.Property<string>("ProfilePictureName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("Surname")
                         .IsRequired()
@@ -186,6 +234,40 @@ namespace OrientaTFG.Shared.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Students", "User");
+                });
+
+            modelBuilder.Entity("OrientaTFG.Shared.Infrastructure.Model.StudentAlertConfiguration", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("AlertEmail")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("AnticipationDaysForFewerThanTotalTaskHoursTasks")
+                        .HasColumnType("int");
+
+                    b.Property<int>("AnticipationDaysForMoreThanTotalTaskHoursTasks")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("CalificationEmail")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalTaskHours")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudentId")
+                        .IsUnique();
+
+                    b.ToTable("StudentsAlertConfigurations", "User");
                 });
 
             modelBuilder.Entity("OrientaTFG.Shared.Infrastructure.Model.SubTask", b =>
@@ -290,12 +372,6 @@ namespace OrientaTFG.Shared.Infrastructure.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<bool>("LogInBlocked")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("LogInRetries")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -308,7 +384,8 @@ namespace OrientaTFG.Shared.Infrastructure.Migrations
 
                     b.Property<string>("ProfilePictureName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("Surname")
                         .IsRequired()
@@ -320,6 +397,21 @@ namespace OrientaTFG.Shared.Infrastructure.Migrations
                     b.HasIndex("DepartmentId");
 
                     b.ToTable("Tutors", "User");
+                });
+
+            modelBuilder.Entity("OrientaTFG.Shared.Infrastructure.Model.Comment", b =>
+                {
+                    b.HasOne("OrientaTFG.Shared.Infrastructure.Model.MainTask", "MainTask")
+                        .WithMany("Comments")
+                        .HasForeignKey("MainTaskId");
+
+                    b.HasOne("OrientaTFG.Shared.Infrastructure.Model.SubTask", "SubTask")
+                        .WithMany("Comments")
+                        .HasForeignKey("SubTaskId");
+
+                    b.Navigation("MainTask");
+
+                    b.Navigation("SubTask");
                 });
 
             modelBuilder.Entity("OrientaTFG.Shared.Infrastructure.Model.MainTask", b =>
@@ -339,6 +431,28 @@ namespace OrientaTFG.Shared.Infrastructure.Migrations
                     b.Navigation("MainTaskStatus");
 
                     b.Navigation("TFG");
+                });
+
+            modelBuilder.Entity("OrientaTFG.Shared.Infrastructure.Model.Message", b =>
+                {
+                    b.HasOne("OrientaTFG.Shared.Infrastructure.Model.TFG", "TFG")
+                        .WithMany("Messages")
+                        .HasForeignKey("TFGId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("TFG");
+                });
+
+            modelBuilder.Entity("OrientaTFG.Shared.Infrastructure.Model.StudentAlertConfiguration", b =>
+                {
+                    b.HasOne("OrientaTFG.Shared.Infrastructure.Model.Student", "Student")
+                        .WithOne("AlertConfiguration")
+                        .HasForeignKey("OrientaTFG.Shared.Infrastructure.Model.StudentAlertConfiguration", "StudentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
                 });
 
             modelBuilder.Entity("OrientaTFG.Shared.Infrastructure.Model.SubTask", b =>
@@ -397,6 +511,8 @@ namespace OrientaTFG.Shared.Infrastructure.Migrations
 
             modelBuilder.Entity("OrientaTFG.Shared.Infrastructure.Model.MainTask", b =>
                 {
+                    b.Navigation("Comments");
+
                     b.Navigation("SubTasks");
                 });
 
@@ -407,7 +523,15 @@ namespace OrientaTFG.Shared.Infrastructure.Migrations
 
             modelBuilder.Entity("OrientaTFG.Shared.Infrastructure.Model.Student", b =>
                 {
+                    b.Navigation("AlertConfiguration")
+                        .IsRequired();
+
                     b.Navigation("TFG");
+                });
+
+            modelBuilder.Entity("OrientaTFG.Shared.Infrastructure.Model.SubTask", b =>
+                {
+                    b.Navigation("Comments");
                 });
 
             modelBuilder.Entity("OrientaTFG.Shared.Infrastructure.Model.SubTaskStatus", b =>
@@ -418,6 +542,8 @@ namespace OrientaTFG.Shared.Infrastructure.Migrations
             modelBuilder.Entity("OrientaTFG.Shared.Infrastructure.Model.TFG", b =>
                 {
                     b.Navigation("MainTasks");
+
+                    b.Navigation("Messages");
                 });
 
             modelBuilder.Entity("OrientaTFG.Shared.Infrastructure.Model.Tutor", b =>

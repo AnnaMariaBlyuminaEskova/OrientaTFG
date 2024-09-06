@@ -1,0 +1,14 @@
+{
+    "redisXplorer.config": {
+        "profiles": [
+            {
+                "name": "Redis",
+                "host": "redis-calas-dev-westeu-01.redis.cache.windows.net",
+                "accessKey": "jNZzoaN7hzldyRe24fXixXJU3QuRT7M1nAzCaIQxKhg=",
+                "filter": "*professionalcategories*",
+                "port": "6380"
+            }
+        ],
+        "scanLimit": 200
+    }
+}

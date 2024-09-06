@@ -1,0 +1,16 @@
+.profile-section, .alert-settings-section, .settings-section {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 30px;
+  margin-bottom: 10px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  margin-bottom: 5px;
+}
+
+

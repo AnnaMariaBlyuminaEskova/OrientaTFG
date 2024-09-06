@@ -7,7 +7,10 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OrientaTFG.Shared.Infrastructure.DBContext;
 using OrientaTFG.Shared.Infrastructure.Enums;
+using OrientaTFG.TFG.Api;
 using OrientaTFG.TFG.Core.Utils.AutoMapper;
+using OrientaTFG.TFG.Core.Utils.ChatHub;
+using System.Reflection;
 using System.Security.Claims;
 
 // Create a new web application builder with the provided command line arguments
@@ -31,6 +34,11 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory((contai
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 
+builder.Services.AddHostedService<TaskAlertBackgroundService>();
+
+//Add signalR
+builder.Services.AddSignalR().AddAzureSignalR(builder.Configuration["SignalRConnectionString"]);
+
 // Add JWT authentication to the service collection
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
@@ -41,7 +49,6 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateAudience = false,
             ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            // Use the secret key from the configuration to validate the JWT token
             IssuerSigningKey = new SymmetricSecurityKey(Convert.FromBase64String(builder.Configuration["SecretKey"])),
             RoleClaimType = ClaimTypes.Role
         };
@@ -64,6 +71,11 @@ builder.Services.AddAuthorization(options =>
     {
         policy.RequireRole(nameof(RoleEnum.Administrator));
     });
+
+    options.AddPolicy(nameof(RoleEnum.TutorOEstudiante), policy =>
+        policy.RequireAssertion(context =>
+            context.User.IsInRole(nameof(RoleEnum.Tutor)) ||
+            context.User.IsInRole(nameof(RoleEnum.Estudiante))));
 });
 
 // Configure Swagger for the service collection
@@ -98,6 +110,10 @@ builder.Services.AddSwaggerGen(c =>
             new string[] { }
         }
     });
+
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
 });
 
 // Add Application Insights
@@ -149,6 +165,7 @@ app.UseCors("AllowAllOrigins");
 
 // Map the controllers
 app.MapControllers();
+app.MapHub<ChatHub>("chatHub");
 
 // Run the application
 app.Run();

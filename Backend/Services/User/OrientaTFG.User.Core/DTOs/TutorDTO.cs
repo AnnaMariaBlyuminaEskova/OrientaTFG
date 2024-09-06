@@ -13,7 +13,7 @@ public class TutorDTO : UserDTO
     public string Email { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the tutor's password
+    /// Gets or sets the tutor's TFGs names
     /// </summary>
-    public string Password { get; set; } = string.Empty;
+    public List<string> TFGs { get; set; } = new();
 }

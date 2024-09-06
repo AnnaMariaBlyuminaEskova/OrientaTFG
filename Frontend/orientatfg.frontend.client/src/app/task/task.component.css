@@ -1,0 +1,135 @@
+
+.columns {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+
+.column {
+  width: 30%;
+  padding: 1em;
+  background-color: #e0f7fa;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1em;
+  margin-bottom: 1em;
+  position: relative;
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+}
+
+.order-number {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #666;
+  margin-right: 10px;
+  margin-right: auto;
+}
+
+.task-title {
+  font-size: 1.2em;
+  margin-bottom: 0.5em;
+  background-color: rgba(12, 148, 166, 0.1);
+  padding: 10px;
+  text-align: center;
+}
+
+.subtask-title,
+.editable-title {
+  font-size: 1.2em;
+  margin-bottom: 0.5em; 
+  background-color: lightgray; 
+  padding: 10px; 
+  text-align: center; 
+  box-sizing: border-box;
+  display: block; 
+  width: 100%;
+}
+
+.editable-title {
+  border: none;
+  outline: none;
+  margin-top: 0.5em;
+}
+
+.small-number-input {
+  width: 50px;
+}
+
+.progress-container {
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  margin-top: 1em;
+  overflow: hidden;
+}
+
+.progress-bar {
+  width: 50%;
+  height: 10px;
+  background-color: #0c94a6;
+}
+
+.score-container {
+  display: flex;
+  align-items: flex-end;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+  .score-container input[type="range"] {
+    margin-right: 8px;
+    width: 100%;
+  }
+
+  .score-container span {
+    white-space: nowrap;
+  }
+
+.card.invalid {
+  border: 3px solid red;
+}
+
+.invalid-field {
+  border: 2px solid red;
+}
+
+.save-button {
+  margin-left: auto;
+}
+
+.comment-icon-section {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 10px; 
+}
+
+.comment-icon-gray {
+  color: #d3d3d3; 
+}
+
+.comment-count-gray {
+  color: #d3d3d3; 
+}
+
+.comment-icon-color {
+  color: #0c94a6; 
+}
+
+.comment-count-color {
+  color: #0c94a6;
+}
+
+.comment-count {
+  font-size: x-small;
+  margin-left: 2px;
+}

@@ -1,0 +1,21 @@
+.error-container {
+  background-color: #ffe5e5;
+  color: #b71c1c;
+  border: 2px solid #b71c1c;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+}
+
+  .error-container h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: bold;
+  }
+
+  .error-container p {
+    font-size: 18px;
+    margin: 0;
+  }

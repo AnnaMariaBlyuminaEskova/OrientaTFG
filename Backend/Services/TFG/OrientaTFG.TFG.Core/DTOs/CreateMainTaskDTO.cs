@@ -8,6 +8,11 @@ public class CreateMainTaskDTO
     public int TFGId { get; set; }
 
     /// <summary>
+    /// Gets or sets the main task's id
+    /// </summary>
+    public int? Id { get; set; }
+
+    /// <summary>
     /// Gets or sets the main task's name
     /// </summary>
     public string Name { get; set; } = string.Empty;

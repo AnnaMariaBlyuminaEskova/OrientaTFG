@@ -1,35 +1,40 @@
-<header class="header-container">
-  OrientaTFG
-</header>
+<app-header></app-header>
 
-<section class="content-section">
+<section class="content-section vertical-centered">
 
-  <img loading="lazy" src="../assets/images/background.jpg" class="background-image" alt="" />
+  <div class="background-image-container">
+    <img loading="lazy" src="../assets/images/background.jpg" class="background-image" alt="" />
+  </div>
+
   <form class="form-container" (ngSubmit)="onSubmit(f)" #f="ngForm">
 
     <div class="input-container">
 
       <label for="emailInput" class="form-label">Correo electrónico</label>
-      <input type="email" id="emailInput" class="input email-input" aria-label="Correo electrónico" name="email" ngModel />
+      <input type="email" id="emailInput" class="input email-input" label="Correo electrónico" name="email" ngModel />
 
       <label for="passwordInput" class="form-label">Contraseña</label>
       <input type="password" id="passwordInput" class="input password-input" aria-label="Contraseña" name="password" ngModel />
 
-      <div class="registration-info">
+      <div class="registration-info" (click)="register()">
         ¿Aún no tienes cuenta? Registrate aquí
       </div>
     </div>
 
-    <div class="error-space">
+    <div class="message-space">
       <div *ngIf="errorMessage" class="error-message">
         {{ errorMessage }}
       </div>
     </div>
 
-    <button class="access-button" type="submit">ACCEDER</button>
+    <div class="button-spinner-container">
+      <button *ngIf="!isLoading" class="custom-button" type="submit">ACCEDER</button>
+      <div *ngIf="isLoading" class="spinner">
+      </div>
+    </div>
+
   </form>
 
 </section>
 
-<footer class="footer-container">
-</footer>
+<app-footer></app-footer>

@@ -1,0 +1,58 @@
+.student-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 2%;
+}
+
+.student-item:hover {
+  background-color: #f0f0f0;
+}
+
+.student-item {
+  display: flex;
+  align-items: center;
+  padding: 1%;
+  cursor: pointer;
+}
+
+.student-list {
+  border: 2px solid #0C94A6;
+  background-color: #0C94A61A;
+  max-height: 200px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.student-input {
+  position: relative;
+}
+
+.student-item.disabled {
+  background-color: #f0f0f0;
+  color: rgba(0, 0, 0, 0.5);
+  cursor: not-allowed;
+}
+
+.selected-student {
+  display: flex;
+  align-items: center;
+  border: 2px solid rgba(12, 148, 166, 1);
+  background-color: rgba(12, 148, 166, 0.1);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+  .selected-student img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+
+  .selected-student .remove-icon {
+    margin-left: auto;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: #ff1744;
+  }

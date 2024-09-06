@@ -1,69 +1,129 @@
-<header class="header-container">
-  OrientaTFG
-  <div class="profile-container" (click)="toggleDropdown()">
-    <img loading="lazy"
-         src="https://cdn.builder.io/api/v1/image/assets/TEMP/590c1e00ae7ac4f0e11b47c431fb1dec884ded335967c2b6fd103032e5819b46?apiKey=6f8563fec18e43e79b319603a371d48b&"
-         alt="Profile Photo"
-         class="profile-photo" />
-    <div [class.show]="isDropdownOpen" class="dropdown-menu">
-      <a href="#profile">
-        <img src="https://img.icons8.com/ios-glyphs/20/000000/user.png" alt="Profile Icon" class="icon" /> Perfil
-      </a>
-      <a href="#logout">
-        <img src="https://img.icons8.com/ios-glyphs/20/000000/exit.png" alt="Logout Icon" class="icon" /> Cerrar sesión
-      </a>
+<app-header></app-header>
+
+<section class="content-section">
+  <div class="main-section">
+    <div *ngIf="isLoading" class="spinner-container">
+      <div class="spinner"></div>
+    </div>
+
+    <div class="modal" *ngIf="showConfirmModal">
+      <div class="modal-content">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <p><strong>¿Está seguro de que desea eliminar este TFG?</strong></p>
+        <div class="modal-actions">
+          <button class="delete-button" (click)="confirmDelete()">Eliminar</button>
+          <button class="cancel-button" (click)="closeModal()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading">
+      <table class="info-table">
+        <thead>
+          <tr>
+            <th>
+              <span>Estudiante</span>
+              <div class="sort-icons">
+                <i class="fa-solid fa-arrow-up" (click)="sortTable(['studentName', 'studentSurname'], 'asc')" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-arrow-down" (click)="sortTable(['studentName', 'studentSurname'], 'desc')" style="cursor: pointer;"></i>
+              </div>
+            </th>
+            <th>
+              <span>TFG</span>
+              <div class="sort-icons">
+                <i class="fa-solid fa-arrow-up" (click)="sortTable(['name'], 'asc')" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-arrow-down" (click)="sortTable(['name'], 'desc')" style="cursor: pointer;"></i>
+              </div>
+            </th>
+            <th>
+              <span>Tareas pendientes de puntuar</span>
+              <div class="sort-icons">
+                <i class="fa-solid fa-arrow-up" (click)="sortTable(['mainTasksNotEvaluated'], 'asc')" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-arrow-down" (click)="sortTable(['mainTasksNotEvaluated'], 'desc')" style="cursor: pointer;"></i>
+              </div>
+            </th>
+            <th>
+              <span>Tareas atrasadas</span>
+              <div class="sort-icons">
+                <i class="fa-solid fa-arrow-up" (click)="sortTable(['delayedMainTasks'], 'asc')" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-arrow-down" (click)="sortTable(['delayedMainTasks'], 'desc')" style="cursor: pointer;"></i>
+              </div>
+            </th>
+            <th>
+              <span>Tareas en progreso</span>
+              <div class="sort-icons">
+                <i class="fa-solid fa-arrow-up" (click)="sortTable(['tasksInProgress'], 'asc')" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-arrow-down" (click)="sortTable(['tasksInProgress'], 'desc')" style="cursor: pointer;"></i>
+              </div>
+            </th>
+            <th>
+              <span>Subtareas pendientes</span>
+              <div class="sort-icons">
+                <i class="fa-solid fa-arrow-up" (click)="sortTable(['subTasksToDo'], 'asc')" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-arrow-down" (click)="sortTable(['subTasksToDo'], 'desc')" style="cursor: pointer;"></i>
+              </div>
+            </th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <thead>
+          <tr class="search-row-bar">
+            <th>
+              <div class="search-container-bar">
+                <i class="fa-solid fa-magnifying-glass" style="color: grey; font-size: 14px; margin-right: 10px;"></i>
+                <input type="text" placeholder="Buscar por nombre" [(ngModel)]="searchName" (input)="filterTfgs()" />
+              </div>
+            </th>
+            <th>
+              <div class="search-container-bar">
+                <i class="fa-solid fa-magnifying-glass" style="color: grey; font-size: 14px; margin-right: 10px;"></i>
+                <input type="text" placeholder="Buscar por TFG" [(ngModel)]="searchTFG" (input)="filterTfgs()" />
+              </div>
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let tfg of filteredTfgs" class="info-row">
+            <td>
+              <div class="personal-info">
+                <img loading="lazy"
+                     [src]="tfg.studentProfilePicture"
+                     alt="{{ tfg.studentName }} Photo"
+                     class="student-photo" />
+                <h4 class="student-name">{{ tfg.studentName }} {{ tfg.studentSurname }}</h4>
+              </div>
+            </td>
+            <td (click)="navigateToPanel(tfg.id)">{{ tfg.name }}</td>
+            <td [ngClass]="{'red-text': tfg.mainTasksNotEvaluated > 0}">{{ tfg.mainTasksNotEvaluated }}</td>
+            <td [ngClass]="{'red-text': tfg.delayedMainTasks > 0}">{{ tfg.delayedMainTasks }}</td>
+            <td>{{ tfg.tasksInProgress }}</td>
+            <td [ngClass]="{'red-text': tfg.subTasksToDo < 1}">{{ tfg.subTasksToDo }}</td>
+            <td class="actions">
+              <i class="fa-solid fa-comments" style="color: green; font-size: 18px; margin-right: 10px;" (click)="navigateToChat(tfg.id, tfg.studentName, tfg.studentSurname, tfg.studentProfilePicture)"></i>
+              <i class="fa-solid fa-pen-to-square" style="color: #0C94A6; font-size: 18px; margin-right: 10px;" (click)="editTFG(tfg)"></i>
+              <i class="fa-solid fa-trash-can" style="color: red; font-size: 18px" (click)="deleteTFG(tfg.id)"></i>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-</header>
-<section class="content-section">
-  <table class="info-table">
-    <tr>
-      <th>Nombre</th>
-      <th>TFG</th>
-      <th>Tareas pendientes de puntuar</th>
-      <th>Tareas en progreso</th>
-      <th>Subtareas pendientes</th>
-    </tr>
-    <tbody>
-      <tr class="info-row">
-        <td>
-          <div class="personal-info">
-            <img loading="lazy"
-                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/590c1e00ae7ac4f0e11b47c431fb1dec884ded335967c2b6fd103032e5819b46?apiKey=6f8563fec18e43e79b319603a371d48b&"
-                 alt="Alba Martínez Photo"
-                 class="student-photo" />
-            <h4 class="student-name">Alba Martínez</h4>
-          </div>
-        </td>
-        <td>
-          Dessarrollo de una app web para la gestión de pacientes
-        </td>
-        <td>1</td>
-        <td>1</td>
-        <td>3 subtareas (20 horas)</td>
-      </tr>
-      <tr class="info-row">
-        <td>
-          <div class="personal-info">
-            <img loading="lazy"
-                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/c58e0a8580496f4d1c3aede541aa571d768456d369e2a66ab19d5544522b1d7d?apiKey=6f8563fec18e43e79b319603a371d48b&"
-                 alt="Juan Pérez Photo"
-                 class="student-photo" />
-            <h4 class="student-name">Juan Pérez</h4>
-          </div>
-        </td>
-        <td>
-          Análisis y Mejora de la Seguridad en Redes Inalámbricas
-        </td>
-        <td>0</td>
-        <td>0</td>
-        <td>0 subtareas (0 horas)</td>
-      </tr>
-    </tbody>
-  </table>
-  <button class="add-tfg">+ Añadir nuevo TFG</button>
+
+  <div class="button-section">
+    <button class="custom-button" (click)="navigateToNewTFG()">+ Añadir nuevo TFG</button>
+  </div>
+
 </section>
-<footer class="footer-container"></footer>
+
+<app-footer></app-footer>
+
 
 
 

@@ -30,18 +30,18 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     /// </summary>
     /// <param name="id">The entity's id</param>
     /// <returns>The entity</returns>
-    public TEntity GetById(int id)
+    public async Task<TEntity?> GetByIdAsync(int id)
     {
-        return dbSet.Find(id);
+        return await dbSet.FindAsync(id);
     }
 
     /// <summary>
     /// Gets all the entities
     /// </summary>
     /// <returns>IEnumerable<TEntity></returns>
-    public IEnumerable<TEntity> GetAll()
+    public async Task<IEnumerable<TEntity>> GetAllAsync()
     {
-        return dbSet.ToList();
+        return await dbSet.ToListAsync();
     }
 
     /// <summary>
@@ -57,38 +57,41 @@ public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     /// Adds an entity to de database
     /// </summary>
     /// <param name="entity">The entity to add</param>
-    public void Add(TEntity entity)
+    public async Task AddAsync(TEntity entity)
     {
-        dbSet.Add(entity);
+        await dbSet.AddAsync(entity);
+        await SaveChangesAsync();
     }
 
     /// <summary>
     /// Updates an entity
     /// </summary>
     /// <param name="entity">The entity to update</param>
-    public void Update(TEntity entity)
+    public async Task UpdateAsync(TEntity entity)
     {
         dbSet.Update(entity);
+        await SaveChangesAsync();
     }
 
     /// <summary>
     /// Deletes an entity by its id
     /// </summary>
     /// <param name="id">The entity's id</param>
-    public void Delete(int id)
+    public async Task DeleteAsync(int id)
     {
         var entity = dbSet.Find(id);
         if (entity != null)
         {
             dbSet.Remove(entity);
+            await SaveChangesAsync();
         }
     }
 
     /// <summary>
     /// Saves the realized changes
     /// </summary>
-    public void SaveChanges()
+    private async Task SaveChangesAsync()
     {
-        orientaTFGContext.SaveChanges();
+        await orientaTFGContext.SaveChangesAsync();
     }
 }

@@ -1,0 +1,76 @@
+.grouped-messages {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.date-header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2em;
+  margin-top: 2em;
+}
+
+.message-footer {
+   text-align: right;
+}
+.message-left {
+  align-self: flex-start;
+  background-color: #e8e6e8;
+  border: 2px solid lightgrey;
+  border-radius: 8px;
+  padding: 0.5em;
+  margin-bottom: 1em;
+  min-width: 20%;
+}
+
+.message-right {
+  align-self: flex-end;
+  background-color: rgba(12, 148, 166, 0.1);
+  border: 2px solid rgba(12, 148, 166, 1);
+  border-radius: 8px;
+  padding: 0.5em;
+  margin-bottom: 1em;
+  min-width: 20%;
+}
+
+.description-input {
+  border: 2px solid rgba(12, 148, 166, 1);
+  background-color: rgba(12, 148, 166, 0.1);
+  font-size: 1rem;
+  width: 100%;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  height: 4em;
+  resize: none;
+  font-family: Arial;
+}
+
+.load-button {
+  background-color: #0C94A6;
+  color: #FFF;
+  border: none;
+  padding: 0.3em 0.6em;
+  font-size: 1rem;
+  font-family: Arial;
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+
+.custom-button.submit-button {
+  align-self: flex-end;
+}
+
+.chat-user-info {
+  display: flex;
+  align-items: center;
+  height: 3em;
+}
+
+.profile-photo {
+  width: auto;
+  padding: 2%;
+  height: 90%;
+  border-radius: 50%;
+  cursor: pointer;
+}

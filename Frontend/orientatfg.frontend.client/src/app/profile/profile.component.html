@@ -1,0 +1,86 @@
+<app-header></app-header>
+
+<section class="content-section">
+
+  <form class="form-container" (ngSubmit)="onSubmit(f)" #f="ngForm">
+
+    <fieldset class="profile-section">
+      <legend><strong>Perfil</strong></legend>
+      <div class="form-group">
+        <label for="nameInput" class="form-label">Nombre</label>
+        <input type="text" id="nameInput" class="input" name="name" [value]="profileData?.name" ngModel [disabled]="true" />
+      </div>
+
+      <div class="form-group">
+        <label for="surnameInput" class="form-label">Apellidos</label>
+        <input type="text" id="surnameInput" class="input" name="surname" [value]="profileData?.surname" ngModel [disabled]="true" />
+      </div>
+
+      <div class="form-group">
+        <label for="emailInput" class="form-label">Correo electrónico</label>
+        <input type="email" id="emailInput" class="input" name="email" [value]="profileData?.email" ngModel required minlength="10" maxlength="100" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #email="ngModel"/>
+        <div *ngIf="email.invalid && email.touched" class="error-message-form">
+          <div *ngIf="email.errors?.['required']">* El correo electrónico es obligatorio</div>
+          <div *ngIf="email.errors?.['minlength']">* El correo electrónico debe tener al menos 10 caracteres</div>
+          <div *ngIf="email.errors?.['maxlength']">* El correo electrónico no puede tener más de 100 caracteres</div>
+          <div *ngIf="email.errors?.['pattern']">* El correo electrónico introducido no es válido</div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset class="alert-settings-section" *ngIf="userRole === 'Estudiante'">
+      <legend><strong>Configuración de alertas</strong></legend>
+
+      <div class="form-group" *ngIf="profileData?.totalTaskHours !== undefined">
+        <label for="totalTaskHours" class="form-label">Horas totales de trabajo pendiente</label>
+        <input type="number" id="totalTaskHours" class="input" name="totalTaskHours" [value]="profileData?.totalTaskHours" ngModel />
+      </div>
+
+      <div class="form-group" *ngIf="profileData?.anticipationDaysForFewerThanTotalTaskHoursTasks !== undefined">
+        <label for="anticipationDaysForFewerTasks" class="form-label">Días de antelación para las alertas de tareas con menos horas</label>
+        <input type="number" id="anticipationDaysForFewerTasks" class="input" name="anticipationDaysForFewerThanTotalTaskHoursTasks" [value]="profileData?.anticipationDaysForFewerThanTotalTaskHoursTasks" ngModel />
+      </div>
+
+      <div class="form-group" *ngIf="profileData?.anticipationDaysForMoreThanTotalTaskHoursTasks !== undefined">
+        <label for="anticipationDaysForMoreTasks" class="form-label">Días de antelación para las alertas de tareas con más horas</label>
+        <input type="number" id="anticipationDaysForMoreTasks" class="input" name="anticipationDaysForMoreThanTotalTaskHoursTasks" [value]="profileData?.anticipationDaysForMoreThanTotalTaskHoursTasks" ngModel />
+      </div>
+
+    </fieldset>
+
+    <fieldset class="settings-section" *ngIf="userRole === 'Estudiante'">
+      <legend><strong>Configuración de notificaciones por correo electrónico</strong></legend>
+
+      <div class="form-group" *ngIf="profileData?.calificationEmail !== undefined">
+        <label for="calificationEmail" class="form-label">Notificaciones de calificaciones</label>
+        <input type="checkbox" id="calificationEmail" name="calificationEmail" [checked]="profileData?.calificationEmail" ngModel />
+      </div>
+
+      <div class="form-group" *ngIf="profileData?.alertEmail !== undefined">
+        <label for="alertEmail" class="form-label">Notificaciones de alertas de tareas</label>
+        <input type="checkbox" id="alertEmail" name="alertEmail" [checked]="profileData?.alertEmail" ngModel />
+      </div>
+
+    </fieldset>
+
+
+    <div class="message-space">
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      <div *ngIf="successMessage" class="success-message">
+        {{ successMessage }}
+      </div>
+    </div>
+
+    <div class="button-spinner-container">
+      <button *ngIf="!isLoading" class="custom-button" type="submit">Guardar cambios</button>
+      <div *ngIf="isLoading" class="spinner">
+      </div>
+    </div>
+
+  </form>
+
+</section>
+
+<app-footer></app-footer>

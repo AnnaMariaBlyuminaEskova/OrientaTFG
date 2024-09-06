@@ -12,16 +12,26 @@
       "instanceScope": "per-lifetime-scope"
     },
     {
-      "type": "OrientaTFG.TFG.Core.Utils.AuthorizationService.AuthorizationService, OrientaTFG.TFG.Core",
+      "type": "OrientaTFG.TFG.Core.Utils.ChatHub.ChatHub, OrientaTFG.TFG.Core",
       "services": [
         {
-          "type": "OrientaTFG.TFG.Core.Utils.AuthorizationService.IAuthorizationService, OrientaTFG.TFG.Core"
+          "type": "OrientaTFG.TFG.Core.Utils.ChatHub.IChatHub, OrientaTFG.TFG.Core"
         }
       ],
       "injectProperties": true,
       "instanceScope": "per-lifetime-scope"
     },
-    // OrientaTFG.TFG.Infrastructure
+    {
+      "type": "OrientaTFG.TFG.Core.Utils.QueueMessageSender.QueueMessageSender, OrientaTFG.TFG.Core",
+      "services": [
+        {
+          "type": "OrientaTFG.TFG.Core.Utils.QueueMessageSender.IQueueMessageSender, OrientaTFG.TFG.Core"
+        }
+      ],
+      "injectProperties": true,
+      "instanceScope": "per-lifetime-scope"
+    },
+    // OrientaTFG.Shared.Infrastructure
     {
       "type": "OrientaTFG.Shared.Infrastructure.Repository.Repository`1[[OrientaTFG.Shared.Infrastructure.Model.TFG, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure",
       "services": [
@@ -43,10 +53,70 @@
       "instanceScope": "per-lifetime-scope"
     },
     {
+      "type": "OrientaTFG.Shared.Infrastructure.Repository.Repository`1[[OrientaTFG.Shared.Infrastructure.Model.MainTaskStatus, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure",
+      "services": [
+        {
+          "type": "OrientaTFG.Shared.Infrastructure.Repository.IRepository`1[[OrientaTFG.Shared.Infrastructure.Model.MainTaskStatus, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure"
+        }
+      ],
+      "injectProperties": true,
+      "instanceScope": "per-lifetime-scope"
+    },
+    {
       "type": "OrientaTFG.Shared.Infrastructure.Repository.Repository`1[[OrientaTFG.Shared.Infrastructure.Model.Student, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure",
       "services": [
         {
           "type": "OrientaTFG.Shared.Infrastructure.Repository.IRepository`1[[OrientaTFG.Shared.Infrastructure.Model.Student, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure"
+        }
+      ],
+      "injectProperties": true,
+      "instanceScope": "per-lifetime-scope"
+    },
+    {
+      "type": "OrientaTFG.Shared.Infrastructure.Utils.StorageClient.StorageClient, OrientaTFG.Shared.Infrastructure",
+      "services": [
+        {
+          "type": "OrientaTFG.Shared.Infrastructure.Utils.StorageClient.IStorageClient, OrientaTFG.Shared.Infrastructure"
+        }
+      ],
+      "injectProperties": true,
+      "instanceScope": "per-lifetime-scope"
+    },
+    {
+      "type": "OrientaTFG.Shared.Infrastructure.Repository.Repository`1[[OrientaTFG.Shared.Infrastructure.Model.SubTask, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure",
+      "services": [
+        {
+          "type": "OrientaTFG.Shared.Infrastructure.Repository.IRepository`1[[OrientaTFG.Shared.Infrastructure.Model.SubTask, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure"
+        }
+      ],
+      "injectProperties": true,
+      "instanceScope": "per-lifetime-scope"
+    },
+    {
+      "type": "OrientaTFG.Shared.Infrastructure.Repository.Repository`1[[OrientaTFG.Shared.Infrastructure.Model.SubTaskStatus, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure",
+      "services": [
+        {
+          "type": "OrientaTFG.Shared.Infrastructure.Repository.IRepository`1[[OrientaTFG.Shared.Infrastructure.Model.SubTaskStatus, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure"
+        }
+      ],
+      "injectProperties": true,
+      "instanceScope": "per-lifetime-scope"
+    },
+    {
+      "type": "OrientaTFG.Shared.Infrastructure.Repository.Repository`1[[OrientaTFG.Shared.Infrastructure.Model.Comment, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure",
+      "services": [
+        {
+          "type": "OrientaTFG.Shared.Infrastructure.Repository.IRepository`1[[OrientaTFG.Shared.Infrastructure.Model.Comment, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure"
+        }
+      ],
+      "injectProperties": true,
+      "instanceScope": "per-lifetime-scope"
+    },
+    {
+      "type": "OrientaTFG.Shared.Infrastructure.Repository.Repository`1[[OrientaTFG.Shared.Infrastructure.Model.Message, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure",
+      "services": [
+        {
+          "type": "OrientaTFG.Shared.Infrastructure.Repository.IRepository`1[[OrientaTFG.Shared.Infrastructure.Model.Message, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure"
         }
       ],
       "injectProperties": true,

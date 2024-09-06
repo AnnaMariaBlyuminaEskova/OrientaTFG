@@ -1,0 +1,46 @@
+<app-header></app-header>
+
+<section class="content-section">
+  <div class="main-section">
+    <i class="fa-solid fa-left-long" style="font-size: 32px; margin-bottom: 5px; align-self: flex-start;" (click)="goBack()"></i>
+
+    <div *ngIf="isLoading" class="spinner-container">
+      <div class="spinner"></div>
+    </div>
+
+    <app-error-card *ngIf="hasError" [title]="'Error'" [message]="errorMessage"></app-error-card>
+
+    <div *ngIf="chatUser && !isLoading && !hasError" class="chat-user-info">
+      <img [src]="chatUser.profilePicture" alt="{{ chatUser.name }} {{ chatUser.surname }}" class="profile-photo" />
+      <h2>{{ chatUser.name }} {{ chatUser.surname }}</h2>
+      <div *ngIf="chatUser.isUserOnline" style="color: green; font-size: 16px; margin-left: 10px; margin-top: 5px;">
+        Conectado/a
+      </div>
+    </div>
+
+    <button *ngIf="moreMessages" class="load-button centered" (click)="loadMoreMessages()" [disabled]="isFetchingMoreMessages">
+      Cargar mensajes anteriores
+    </button>
+
+    <div *ngFor="let dateGroup of groupedMessages" class="grouped-messages">
+      <div class="date-header" [innerHTML]="formatDate(dateGroup.date)"></div>
+      <div *ngFor="let message of dateGroup.messages"
+           [ngClass]="{'message-left': message.createdBy !== userRole, 'message-right': message.createdBy === userRole}">
+        <div class="message-body">
+          <p>{{ message.text }}</p>
+        </div>
+        <div class="message-footer">
+          <strong>{{ message.createdOn | date: 'HH:mm' }}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+    <textarea *ngIf="!isLoading && !hasError" class="description-input" [(ngModel)]="newMessage" placeholder="Escribe tu mensaje..."></textarea>
+    <button *ngIf="!isLoading && !hasError" class="custom-button submit-button" (click)="submitMessage()">Enviar</button>
+
+</section>
+
+<app-footer></app-footer>
+
+
+

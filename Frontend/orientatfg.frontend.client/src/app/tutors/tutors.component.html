@@ -1,0 +1,115 @@
+<app-header></app-header>
+
+<section class="content-section">
+  <div class="main-section">
+    <div *ngIf="isLoading" class="spinner-container">
+      <div class="spinner"></div>
+    </div>
+
+    <div *ngIf="!isLoading">
+      <table class="info-table">
+
+        <thead>
+          <tr>
+            <th>
+              <span>Tutor</span>
+              <div class="sort-icons">
+                <i class="fa-solid fa-arrow-up" (click)="sortTable(['name', 'surname'], 'asc')" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-arrow-down" (click)="sortTable(['name', 'surname'], 'desc')" style="cursor: pointer;"></i>
+              </div>
+            </th>
+            <th>
+              <span>Correo electrónico</span>
+              <div class="sort-icons">
+                <i class="fa-solid fa-arrow-up" (click)="sortTable(['email'], 'asc')" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-arrow-down" (click)="sortTable(['email'], 'desc')" style="cursor: pointer;"></i>
+              </div>
+            </th>
+            <th>
+              <span>Departamento</span>
+              <div class="sort-icons">
+                <i class="fa-solid fa-arrow-up" (click)="sortTable(['departmentName'], 'asc')" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-arrow-down" (click)="sortTable(['departmentName'], 'desc')" style="cursor: pointer;"></i>
+              </div>
+            </th>
+            <th>TFGs tutorizados</th>
+          </tr>
+        </thead>
+
+        <thead>
+          <tr class="search-row-bar">
+            <th>
+              <div class="search-container-bar">
+                <i class="fa-solid fa-magnifying-glass" style="color: grey; font-size: 14px; margin-right: 10px;"></i>
+                <input type="text" placeholder="Buscar por nombre" [(ngModel)]="searchName" (input)="filterTutors()" />
+              </div>
+            </th>
+            <th>
+              <div class="search-container-bar">
+                <i class="fa-solid fa-magnifying-glass" style="color: grey; font-size: 14px; margin-right: 10px;"></i>
+                <input type="text" placeholder="Buscar por correo" [(ngModel)]="searchEmail" (input)="filterTutors()" />
+              </div>
+            </th>
+            <th>
+              <div class="department-select">
+                <div class="search-container-bar-padding" (click)="toggleDropdown()">
+                  <i class="fa-solid fa-magnifying-glass" style="color: grey; font-size: 14px; margin-right: 10px;"></i>
+                  <span class="search-text">Buscar por departamento</span>
+                </div>
+                <div class="dropdown-content" *ngIf="dropdownOpen">
+                  <div *ngFor="let department of departments" class="department-item">
+                    <input type="checkbox"
+                           [checked]="selectedDepartments.includes(department.name)"
+                           (change)="toggleDepartment(department.name)"
+                           id="{{department.name}}"
+                           class="department-checkbox" />
+                    <label for="{{department.name}}" class="department-label">
+                      {{ department.name }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </th>
+            <th>
+              <div class="search-container-bar">
+                <i class="fa-solid fa-magnifying-glass" style="color: grey; font-size: 14px; margin-right: 10px;"></i>
+                <input type="text" placeholder="Buscar por TFG" [(ngModel)]="searchTFG" (input)="filterTutors()" />
+              </div>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tutor of filteredTutors" class="info-row">
+            <td>
+              <div class="personal-info">
+                <img loading="lazy"
+                     [src]="tutor.profilePicture"
+                     alt="{{ tutor.name }} Photo"
+                     class="tutor-photo" />
+                <h4 class="tutor-name">{{ tutor.name }} {{ tutor.surname }}</h4>
+              </div>
+            </td>
+            <td>{{ tutor.email }}</td>
+            <td>{{ tutor.departmentName }}</td>
+            <td style="text-align: left;">
+              <ul>
+                <li *ngFor="let tfg of tutor.tfGs">{{ tfg }}</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="button-section">
+    <button class="custom-button" (click)="navigateToNewTutor()">+ Registrar nuevo tutor</button>
+  </div>
+
+</section>
+
+<app-footer></app-footer>
+
+
+
+

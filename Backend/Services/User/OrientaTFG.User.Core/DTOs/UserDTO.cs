@@ -20,5 +20,5 @@ public class UserDTO
     /// <summary>
     /// Gets or sets the user's profile picture
     /// </summary>
-    public byte[] ProfilePicture { get; set; }
+    public string ProfilePicture { get; set; }
 }

@@ -1,0 +1,152 @@
+<app-header></app-header>
+
+<section class="content-section">
+  <div *ngIf="isLoading" class="spinner-container">
+    <div class="spinner"></div>
+  </div>
+  <i class="fa-solid fa-left-long" style="font-size: 32px; margin-bottom: 5px; align-self: flex-start;" (click)="goBack()"></i>
+
+  <div class="modal" *ngIf="showConfirmModal">
+    <div class="modal-content">
+      <span class="close" (click)="closeModal()">&times;</span>
+      <p><strong>¿Está seguro que desea eliminar esta subtarea?</strong></p>
+      <div class="modal-actions">
+        <button class="delete-button" (click)="confirmDelete()">Eliminar</button>
+        <button class="cancel-button" (click)="closeModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <app-error-card *ngIf="hasError" [title]="'Error'" [message]="errorMessage"></app-error-card>
+
+  <div *ngIf="!isLoading && !hasError" class="columns">
+    <div class="column background-color-light-blue">
+      <h2>TAREA</h2>
+      <div class="card">
+        <div class="card-header">
+          <span class="order-number">{{ mainTask.order }}</span>
+          <p class="task-title">{{ mainTask.name }}</p>
+        </div>
+        <p><strong>Fecha de entrega prevista: </strong>{{ mainTask.deadline | date: 'dd/MM/yyyy (HH:mm)' }}</p>
+        <p><strong>Creada por: </strong>{{ mainTask.createdBy }}</p>
+        <p><strong>Descripción: </strong>{{ mainTask.description }}</p>
+        <p><strong>Estimación inicial: </strong>{{ mainTask.estimatedHours }} horas</p>
+        <p><strong>Total invertido: </strong>{{ mainTask.totalHours }} horas</p>
+        <p><strong>Estado: </strong>{{ mainTask.status }}</p>
+        <p><strong>Progreso: </strong>{{ getProgressPercentage() }}%</p>
+        <div class="progress-container">
+          <div class="progress-bar" [style.width.%]="getProgressPercentage()"></div>
+        </div>
+        <div class="score-container">
+          <input *ngIf="role === 2 && mainTask.status ==='Realizado' && mainTask.obtainedPoints === 0" type="number" [min]="0" [max]="mainTask.maximumPoints" [(ngModel)]="tempObtainedPoints" />
+          <span *ngIf="mainTask.obtainedPoints !== 0">
+            {{ mainTask.obtainedPoints }} / {{ mainTask.maximumPoints }} pts
+          </span>
+          <span *ngIf="mainTask.obtainedPoints === 0">
+            /{{ mainTask.maximumPoints }} pts
+          </span>
+        </div>
+        <div *ngIf="tempObtainedPoints > mainTask.maximumPoints" class="error-message-form">
+          <div>* Los puntos no pueden ser mayores a {{ mainTask.maximumPoints }}</div>
+        </div>
+        <div class="comment-icon-section">
+          <i class="fa-solid fa-comment" [ngClass]="{'comment-icon-gray' : !mainTask.commentsCount || mainTask.commentsCount === 0, 'comment-icon-color' : mainTask.commentsCount && mainTask.commentsCount > 0}" (click)="goToMainTaskDetail(mainTask)">
+            <span class="comment-count" [ngClass]="{'comment-count-gray' : !mainTask.commentsCount || mainTask.commentsCount === 0,'comment-count-color' : mainTask.commentsCount && mainTask.commentsCount> 0}"> {{ mainTask.commentsCount || 0 }} </span>
+          </i>
+        </div>
+      </div>
+    </div>
+
+    <div class="column background-color-salmon">
+      <h2>PENDIENTES <span style="font-size: smaller; font-weight:lighter;">({{ getTotalEstimatedHours() }} horas)</span></h2>
+      <div class="card" *ngFor="let task of pendientesTasks">
+        <div class="card-header">
+          <div class="header-row">
+            <span class="order-number">{{ mainTask.order }}.{{ task.order }}</span>
+            <i class="fa-solid fa-xmark" style="color: red;" (click)="deleteSubTask(task)"></i>
+          </div>
+          <p class="subtask-title" (click)="goToTaskDetail(task)">{{ task.name }}</p>
+        </div>
+        <p><strong>Creada por: </strong>{{ task.createdBy }}</p>
+        <p><strong>Estimación inicial: </strong>{{ task.estimatedHours }} horas</p>
+        <p><strong>Total invertido: </strong><input type="number" class="small-number-input" [(ngModel)]="task.totalHours" (change)="updateSubTaskData(task)"><span> horas</span></p>
+        <p>
+          <strong>Estado: </strong>
+          <select [(ngModel)]="task.status" (change)="updateSubTaskData(task)">
+            <option value="Pendiente">Pendiente</option>
+            <option value="Realizado" [disabled]="task.totalHours === null">Realizado</option>
+          </select>
+        </p>
+        <div class="comment-icon-section">
+          <i class="fa-solid fa-comment" [ngClass]="{'comment-icon-gray' : !task.commentsCount || task.commentsCount === 0, 'comment-icon-color' : task.commentsCount && task.commentsCount > 0}" (click)="goToTaskDetail(task)">
+            <span class="comment-count" [ngClass]="{'comment-count-gray' : !task.commentsCount || task.commentsCount === 0,'comment-count-color' : task.commentsCount && task.commentsCount> 0}"> {{ task.commentsCount || 0 }} </span>
+          </i>
+        </div>
+      </div>
+
+      <div class="card" *ngFor="let task of newSubTasks" [ngClass]="{'invalid': isTaskInvalid(task)}">
+        <div class="card-header">
+          <div class="header-row">
+            <span class="order-number">{{ mainTask.order }}.{{ task.order }}</span>
+            <i class="fa-solid fa-xmark" style="color: red;" (click)="deleteSubTask(task)"></i>
+          </div>
+          <input type="text" [(ngModel)]="task.name" class="editable-title" [ngClass]="{'invalid-field': isFieldInvalid(task, 'name')}">
+        </div>
+        <p><strong>Creada por: </strong>{{ task.createdBy }}</p>
+        <p><strong>Estimación inicial: </strong><input type="number" class="small-number-input" [(ngModel)]="task.estimatedHours" [ngClass]="{'invalid-field': isFieldInvalid(task, 'estimatedHours')}"> horas</p>
+        <p><strong>Total invertido: </strong><input type="number" class="small-number-input" [(ngModel)]="task.totalHours"><span> horas</span></p>
+        <p>
+          <strong>Estado: </strong>
+          <select [(ngModel)]="task.status" (change)="updateSubTaskData(task)">
+            <option value="Pendiente">Pendiente</option>
+            <option value="Realizado" [disabled]="true">Realizado</option>
+          </select>
+        </p>
+      </div>
+
+    </div>
+
+    <div class="column background-color-green">
+      <h2>REALIZADAS <span style="font-size: smaller; font-weight:lighter;">({{ getTotalHours() }} horas)</span></h2>
+      <div class="card" *ngFor="let task of realizadasTasks">
+        <div class="card-header">
+          <div class="header-row">
+            <span class="order-number">{{ mainTask.order }}.{{ task.order }}</span>
+            <i class="fa-solid fa-xmark" style="color: red;" (click)="deleteSubTask(task)"></i>
+          </div>
+          <p class="subtask-title" (click)="goToTaskDetail(task)">{{ task.name }}</p>
+        </div>
+        <p><strong>Creada por: </strong>{{ task.createdBy }}</p>
+        <p><strong>Estimación inicial: </strong>{{ task.estimatedHours }} horas</p>
+        <p><strong>Total invertido: </strong>{{ task.totalHours }} horas</p>
+        <p>
+          <strong>Estado: </strong>
+          <select [(ngModel)]="task.status" (change)="updateSubTaskData(task)">
+            <option value="Pendiente">Pendiente</option>
+            <option value="Realizado">Realizado</option>
+          </select>
+        </p>
+        <div class="comment-icon-section">
+          <i class="fa-solid fa-comment" [ngClass]="{'comment-icon-gray' : !task.commentsCount || task.commentsCount === 0, 'comment-icon-color' : task.commentsCount && task.commentsCount > 0}" (click)="goToTaskDetail(task)">
+            <span class="comment-count" [ngClass]="{'comment-count-gray' : !task.commentsCount || task.commentsCount === 0,'comment-count-color' : task.commentsCount && task.commentsCount> 0}"> {{ task.commentsCount || 0 }} </span>
+          </i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading && !hasError" class="button-section">
+    <button class="custom-button" (click)="addNewSubTask()">+ Crear nueva subtarea</button>
+    <button class="custom-button save-button" (click)="saveAllChanges()">Guardar cambios</button>
+  </div>
+
+</section>
+
+<app-footer></app-footer>
+
+
+
+
+
+
+

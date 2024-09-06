@@ -1,0 +1,52 @@
+<app-header></app-header>
+
+<section class="content-section">
+  <div class="main-section">
+    <i class="fa-solid fa-left-long" style="font-size: 32px; margin-bottom: 5px; align-self: flex-start;" (click)="goBack()"></i>
+
+    <div *ngIf="isLoading" class="spinner-container">
+      <div class="spinner"></div>
+    </div>
+
+    <app-error-card *ngIf="hasError" [title]="'Error'" [message]="errorMessage"></app-error-card>
+
+    <div *ngIf="!isLoading && !hasError">
+      <h2 class="task-title">{{ commentHistory?.taskName }}</h2>
+
+      <div class="comment-input-container">
+        <textarea class="description-input" [(ngModel)]="newComment" placeholder="Escribe tu comentario..."></textarea>
+        <input type="file" (change)="onFilesSelected($event)" multiple accept=".jpg,.jpeg,.png, .doc, .docx, .pdf, .zip, .rar" />
+        <br />
+        <small>Archivos admitidos: .jpeg, .jpg, .png, .pdf, .doc, .docx, .pdf, .zip, .rar</small>
+        <div *ngIf="selectedFiles.length > 0" class="selected-files-list">
+          <p *ngFor="let file of selectedFiles; let i = index">
+            {{ file.name }}
+            <i class="fa-solid fa-xmark" style="color: red;" (click)="removeFile(i)"></i>
+          </p>
+        </div>
+        <button class="custom-button submit-button" (click)="submitComment()">Enviar comentario</button>
+      </div>
+
+      <div class="comment-container">
+        <div *ngFor="let comment of commentHistory?.comments" [ngClass]="{'comment-left': comment.createdBy !== userRole, 'comment-right': comment.createdBy === userRole}">
+          <div class="comment-header">
+            <strong>{{ comment.createdBy }}</strong> - {{ formatDate(comment.createdOn) }}
+          </div>
+          <div class="comment-body">
+            <p>{{ comment.text }}</p>
+            <ul *ngIf="comment.files && comment.files.length > 0">
+              <li *ngFor="let file of comment.files">
+                <a [href]="file.url">{{ file.name }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-footer></app-footer>
+
+
+

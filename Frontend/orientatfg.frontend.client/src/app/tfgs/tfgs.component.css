@@ -1,106 +1,3 @@
-:host {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  justify-content: center;
-  align-items: center;
-}
-
-.header-container {
-  background-color: #0c94a6;
-  height: 13%;
-  width: 100%;
-  color: #fff;
-  text-align: center;
-  justify-content: center;
-  font-size: calc(14px + 1.5vmin);
-  font-family: Kreon, sans-serif;
-  display: flex;
-  align-items: center;
-  position: relative;
-}
-
-.profile-container {
-  position: absolute;
-  right: 50px;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.profile-photo {
-  width: 60px; /* Tamaño ajustado para igualar las fotos de los estudiantes */
-  height: 60px; /* Tamaño ajustado para igualar las fotos de los estudiantes */
-  border-radius: 50%;
-  margin-left: 10px;
-}
-
-.dropdown-menu {
-  display: none;
-  position: absolute;
-  top: 70px; /* Ajustado para alinearse con el tamaño de la imagen */
-  background-color: white;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-  z-index: 1;
-  font-size: 12px;
-}
-
-  .dropdown-menu.show {
-    display: block;
-  }
-
-  .dropdown-menu a {
-    color: black;
-    padding: 8px 16px;
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-  }
-
-    .dropdown-menu a .icon {
-      margin-right: 8px;
-    }
-
-    .dropdown-menu a:hover {
-      background-color: #f1f1f1;
-    }
-
-.content-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0;
-  position: relative;
-  flex: 1;
-  width: 100%;
-}
-
-.footer-container {
-  background-color: #0c94a6;
-  width: 100%;
-  padding: 1em 0;
-  position: absolute;
-  bottom: 0;
-}
-
-.info-table {
-  border-collapse: collapse;
-  margin: 20px;
-  border: 2px solid #0c94a6;
-}
-
-  .info-table th,
-  .info-table td {
-    padding: 8px;
-    text-align: center;
-  }
-
-.info-row {
-  border-top: 2px solid #0c94a6;
-}
-
 .personal-info {
   display: flex;
   align-items: center;
@@ -113,26 +10,11 @@
 }
 
 .student-name {
-  font-family: Open Sans Hebrew, sans-serif;
   font-weight: bold;
   margin: 0;
 }
 
 .project-description {
-  font-family: Open Sans Hebrew, sans-serif;
   margin: 0;
 }
 
-.add-tfg {
-  background-color: #0c94a6;
-  color: #fff;
-  text-align: center;
-  padding: 15px 24px;
-  margin: 20px;
-  cursor: pointer;
-  border: none;
-  border-radius: 5px;
-  position: absolute;
-  left: 10px;
-  bottom: 30px; 
-}

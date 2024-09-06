@@ -36,4 +36,9 @@ public class TaskDTO
     /// Gets or sets the name of the creator of the task
     /// </summary>
     public string CreatedBy { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of comments
+    /// </summary>
+    public int CommentsCount { get; set; }
 }

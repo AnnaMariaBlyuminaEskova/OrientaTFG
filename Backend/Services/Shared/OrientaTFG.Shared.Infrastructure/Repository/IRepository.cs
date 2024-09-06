@@ -7,13 +7,13 @@
         /// </summary>
         /// <param name="id">The entity's id</param>
         /// <returns>The entity</returns>
-        TEntity GetById(int id);
+        Task<TEntity?> GetByIdAsync(int id);
 
         /// <summary>
         /// Gets all the entities
         /// </summary>
         /// <returns>IEnumerable<TEntity></returns>
-        IEnumerable<TEntity> GetAll();
+        Task<IEnumerable<TEntity>> GetAllAsync();
 
         /// <summary>
         /// Gets the IQueryable to execute queries
@@ -25,23 +25,18 @@
         /// Adds an entity to de database
         /// </summary>
         /// <param name="entity">The entity to add</param>
-        void Add(TEntity entity);
+        Task AddAsync(TEntity entity);
 
         /// <summary>
         /// Updates an entity
         /// </summary>
         /// <param name="entity">The entity to update</param>
-        void Update(TEntity entity);
+        Task UpdateAsync(TEntity entity);
 
         /// <summary>
         /// Deletes an entity by its id
         /// </summary>
         /// <param name="id">The entity's id</param>
-        void Delete(int id);
-
-        /// <summary>
-        /// Saves the realized changes
-        /// </summary>
-        void SaveChanges();
+        Task DeleteAsync(int id);
     }
 }

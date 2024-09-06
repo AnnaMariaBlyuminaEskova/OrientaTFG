@@ -44,4 +44,10 @@ public class TFG : BaseModel
     /// </summary>
     [InverseProperty(nameof(TFG))]
     public virtual ICollection<MainTask>? MainTasks { get; set; }
+
+    /// <summary>
+    /// Gets or sets the tfg's messages
+    /// </summary>
+    [InverseProperty(nameof(TFG))]
+    public virtual ICollection<Message>? Messages { get; set; }
 }

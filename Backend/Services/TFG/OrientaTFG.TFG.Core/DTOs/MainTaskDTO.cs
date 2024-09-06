@@ -13,6 +13,11 @@ public class MainTaskDTO : TaskDTO
     public int MaximumPoints { get; set; }
 
     /// <summary>
+    /// Gets or sets the main task's description
+    /// </summary>
+    public string Description { get; set; } = string.Empty;
+
+    /// <summary>
     /// Gets or sets the main task's obtained points
     /// </summary>
     public int ObtainedPoints { get; set; }

@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TFG", "TFG", "{14167C34-F37
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TFG", "TFG", "{7F9C81C7-C357-4A72-9F12-708E8D5F644C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrientaTFG.TFG.Core.Test", "Test\TFG\OrientaTFG.TFG.Core.Test\OrientaTFG.TFG.Core.Test.csproj", "{91D079BD-4FAE-4DA8-A9F5-092BBD9AC804}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrientaTFG.TFG.Core.Test", "Test\TFG\OrientaTFG.TFG.Core.Test\OrientaTFG.TFG.Core.Test.csproj", "{91D079BD-4FAE-4DA8-A9F5-092BBD9AC804}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

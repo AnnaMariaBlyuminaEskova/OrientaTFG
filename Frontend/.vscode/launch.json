@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "name": "Docker Node.js Launch",
+            "type": "docker",
+            "request": "launch",
+            "preLaunchTask": "docker-run: debug",
+            "platform": "node",
+            "node": {
+                "package": "${workspaceFolder}/orientatfg.frontend.client/package.json",
+                "localRoot": "${workspaceFolder}/orientatfg.frontend.client"
+            }
+        }
+    ]
+}

@@ -1,0 +1,80 @@
+<app-header></app-header>
+
+<section class="content-section">
+
+  <i class="fa-solid fa-left-long" style="font-size: 32px; margin-bottom: 5px; align-self: flex-start;" (click)="goBack()"></i>
+
+  <form class="form-container" (ngSubmit)="onSubmit(f)" #f="ngForm">
+
+    <div class="input-container">
+
+      <label for="departmentSelect" class="form-label">* Departamento</label>
+      <select id="departmentSelect" class="input department-select" name="department" [(ngModel)]="selectedDepartmentId" required>
+        <option *ngFor="let department of departments" [value]="department.id">{{ department.name }}</option>
+      </select>
+
+      <label for="nameInput" class="form-label">* Nombre</label>
+      <input type="text" id="nameInput" class="input name-input" name="name" ngModel required minlength="3" maxlength="50" #name="ngModel" />
+      <div *ngIf="name.invalid && name.touched" class="error-message-form">
+        <div *ngIf="name.errors?.['required']">* El nombre es obligatorio</div>
+        <div *ngIf="name.errors?.['minlength']">* El nombre debe tener al menos 3 caracteres</div>
+        <div *ngIf="name.errors?.['maxlength']">* El nombre no puede tener más de 50 caracteres</div>
+      </div>
+
+      <label for="surnameInput" class="form-label">* Apellidos</label>
+      <input type="text" id="surnameInput" class="input surname-input" name="surname" ngModel required minlength="3" maxlength="50" #surname="ngModel" />
+      <div *ngIf="surname.invalid && surname.touched" class="error-message-form">
+        <div *ngIf="surname.errors?.['required']">* Los apellidos son obligatorios</div>
+        <div *ngIf="surname.errors?.['minlength']">* Los apellidos deben tener al menos 3 caracteres</div>
+        <div *ngIf="surname.errors?.['maxlength']">* Los apellidos no pueden tener más de 50 caracteres</div>
+      </div>
+
+      <label for="emailInput" class="form-label">* Correo electrónico</label>
+      <input type="email" id="emailInput" class="input email-input" name="email" ngModel required minlength="10" maxlength="100" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$" #email="ngModel" />
+      <div *ngIf="email.invalid && email.touched" class="error-message-form">
+        <div *ngIf="email.errors?.['required']">* El correo electrónico es obligatorio</div>
+        <div *ngIf="email.errors?.['minlength']">* El correo electrónico debe tener al menos 10 caracteres</div>
+        <div *ngIf="email.errors?.['maxlength']">* El correo electrónico no puede tener más de 100 caracteres</div>
+        <div *ngIf="email.errors?.['pattern']">* El correo electrónico introducido no es válido</div>
+      </div>
+
+      <label for="passwordInput" class="form-label">* Contraseña</label>
+      <input type="password" id="passwordInput" class="input password-input" aria-label="Contraseña" name="password" ngModel required minlength="10" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).*$" #password="ngModel" />
+      <div *ngIf="password.invalid && password.touched" class="error-message-form">
+        <div *ngIf="password.errors?.['required']">* La contraseña es obligatoria</div>
+        <div *ngIf="password.errors?.['minlength']">* La contraseña debe tener al menos 10 caracteres</div>
+        <div *ngIf="password.errors?.['pattern']">
+          * La contraseña debe contener al menos:
+          <ul>
+            <li>Una letra mayúscula</li>
+            <li>Una letra minúscula</li>
+            <li>Un número</li>
+            <li>Un carácter especial</li>
+          </ul>
+        </div>
+      </div>
+
+      <label for="fileInput" class="form-label">* Foto de perfil</label>
+      <input type="file" id="fileInput" name="photo" (change)="onFileSelected($event)" accept=".jpg,.jpeg,.png" required />
+      <br />
+      <small>Archivos admitidos: .jpeg, .jpg, .png</small>
+    </div>
+
+    <div class="message-space">
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      <div *ngIf="successMessage" class="success-message">
+        {{ successMessage }}
+      </div>
+    </div>
+
+    <button *ngIf="!isLoading" class="custom-button centered" type="submit">REGISTRAR</button>
+    <div *ngIf="isLoading" class="spinner centered">
+    </div>
+
+  </form>
+
+</section>
+
+<app-footer></app-footer>

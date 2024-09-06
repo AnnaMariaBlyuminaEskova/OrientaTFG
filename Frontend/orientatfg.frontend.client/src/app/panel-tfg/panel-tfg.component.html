@@ -1,0 +1,160 @@
+<app-header></app-header>
+
+<section class="content-section">
+  <div class="main-section">
+    <div *ngIf="isLoading" class="spinner-container">
+      <div class="spinner"></div>
+    </div>
+
+    <div class="modal" *ngIf="showConfirmModal">
+      <div class="modal-content">
+        <span class="close" (click)="closeModal()">&times;</span>
+        <p><strong>¿Está seguro de que desea eliminar esta tarea?</strong></p>
+        <div class="modal-actions">
+          <button class="delete-button" (click)="confirmDelete()">Eliminar</button>
+          <button class="cancel-button" (click)="closeModal()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <app-error-card *ngIf="hasError" [title]="'Error'" [message]="errorMessage"></app-error-card>
+
+    <div *ngIf="!isLoading && !hasError">
+      <div class="summary">
+        <h2>{{ summary.name }}</h2>
+        <div class="content">
+          <div class="left">
+            <p><strong class="space-right">Total tareas:</strong> {{ summary.taskCount }}</p>
+            <p>
+              <strong class="space-right">Puntuación:</strong> {{ summary.totalObtainedPoints }}/{{ summary.totalMaximumPoints }} pts
+            </p>
+          </div>
+          <div class="right">
+            <p><strong class="space-right">Subtareas:</strong> {{ summary.subTaskCount }} ({{ summary.subTaskHours }} horas)</p>
+            <p><strong class="space-right">Subtareas realizadas:</strong> {{ summary.doneSubTasks }} ({{ summary.hoursDoneSubTasks }} horas)</p>
+            <p><strong class="space-right">Subtareas pendientes:</strong> {{ summary.subTasksToDo }} ({{ summary.hoursSubTasksToDo }} horas)</p>
+          </div>
+        </div>
+      </div>
+
+      <table class="info-table">
+        <thead>
+          <tr>
+            <th>
+              <span>Nº Tarea</span>
+              <div class="sort-icons">
+                <i class="fa-solid fa-arrow-up" (click)="sortTable('order', 'asc')" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-arrow-down" (click)="sortTable('order', 'desc')" style="cursor: pointer;"></i>
+              </div>
+            </th>
+            <th>
+              Nombre
+              <div class="sort-icons">
+                <i class="fa-solid fa-arrow-up" (click)="sortTable('name', 'asc')" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-arrow-down" (click)="sortTable('name', 'desc')" style="cursor: pointer;"></i>
+              </div>
+            </th>
+            <th>
+              Fecha de entrega
+              <div class="sort-icons">
+                <i class="fa-solid fa-arrow-up" (click)="sortTable('order', 'asc')" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-arrow-down" (click)="sortTable('order', 'desc')" style="cursor: pointer;"></i>
+              </div>
+            </th>
+            <th>
+              Estado
+              <div class="sort-icons">
+                <i class="fa-solid fa-arrow-up" (click)="sortTable('status', 'asc')" style="cursor: pointer;"></i>
+                <i class="fa-solid fa-arrow-down" (click)="sortTable('status', 'desc')" style="cursor: pointer;"></i>
+              </div>
+            </th>
+            <th>Puntuación</th>
+            <th>Subtareas</th>
+            <th></th>
+          </tr>
+        </thead>
+        <thead>
+          <tr class="search-row-bar">
+            <th></th>
+            <th>
+              <div class="search-container-bar">
+                <i class="fa-solid fa-magnifying-glass" style="color: grey; font-size: 14px; margin-right: 10px;"></i>
+                <input type="text" placeholder="Buscar por nombre" [(ngModel)]="searchName" (input)="filterTasks()" />
+              </div>
+            </th>
+            <th></th>
+            <th>
+              <div class="department-select">
+                <div class="search-container-bar-padding" (click)="toggleDropdown()">
+                  <i class="fa-solid fa-magnifying-glass" style="color: grey; font-size: 14px; margin-right: 10px;"></i>
+                  <span class="search-text">Buscar por estado</span>
+                </div>
+                <div class="dropdown-content" *ngIf="dropdownOpen">
+                  <div *ngFor="let status of statuses" class="department-item">
+                    <input type="checkbox"
+                           [checked]="selectedStatus.includes(status)"
+                           (change)="toggleStatus(status)"
+                           id="{{status}}"
+                           class="department-checkbox" />
+                    <label for="{{status}}" class="department-label">
+                      {{ status }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let mainTaskSummary of filteredMainTaskSummaries" class="info-row">
+            <td>{{ mainTaskSummary.order }}</td>
+            <td (click)="navigateToTask(mainTaskSummary.id)"><strong>{{ mainTaskSummary.name }}</strong></td>
+            <td [ngClass]="{'red-text': shouldApplyRedText(mainTaskSummary)}">
+              {{ mainTaskSummary.deadline | date: 'dd/MM/yyyy (HH:mm)' }}
+              <i *ngIf="shouldShowAlertIcon(mainTaskSummary)"
+                 class="fa-solid fa-triangle-exclamation"
+                 style="color: red; font-size: 18px; margin-right: 10px;">
+              </i>
+            </td>
+            <td [ngClass]="{
+          'background-color-salmon': mainTaskSummary.status === 'Pendiente',
+          'background-color-green': mainTaskSummary.status === 'Realizado',
+          'background-color-light-blue': mainTaskSummary.status === 'Desarrollo'
+        }">
+              {{ mainTaskSummary.status }}
+            </td>
+            <td>{{ mainTaskSummary.obtainedPoints }}/{{ mainTaskSummary.maximumPoints }} pts</td>
+            <td>
+              <div class="subtask">
+                <span class="circle background-color-salmon"></span>
+                <span class="text">Pendientes: {{ mainTaskSummary.subTasksToDo }} subtareas ({{ mainTaskSummary.hoursSubTasksToDo }} horas)</span>
+              </div>
+              <div class="subtask">
+                <span class="circle background-color-green"></span>
+                <span class="text">Realizadas: {{ mainTaskSummary.doneSubTasks }} subtareas ({{ mainTaskSummary.hoursDoneSubTasks }} horas)</span>
+              </div>
+            </td>
+            <td class="actions">
+              <i class="fa-solid fa-pen-to-square" style="color: #0C94A6; font-size: 18px; margin-right: 10px;" (click)="editTask(mainTaskSummary)"></i>
+              <i class="fa-solid fa-trash-can" style="color: red; font-size: 18px" (click)="deleteTask(mainTaskSummary.id)"></i>
+            </td>
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+  </div>
+  <div *ngIf="!isLoading && !hasError" class="button-section">
+    <button class="custom-button" (click)="navigateToNewTask()">+ Añadir nueva tarea</button>
+  </div>
+
+</section>
+
+<app-footer></app-footer>
+
+
+

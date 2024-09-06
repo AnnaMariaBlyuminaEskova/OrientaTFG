@@ -10,4 +10,10 @@ public class Student : User
     /// </summary>
     [InverseProperty(nameof(Student))]
     public virtual TFG? TFG { get; set; }
+
+    /// <summary>
+    /// Gets or sets the student's alert configuration
+    /// </summary>
+    [InverseProperty(nameof(Student))]
+    public virtual StudentAlertConfiguration AlertConfiguration { get; set; } = null!;
 }

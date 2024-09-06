@@ -31,16 +31,6 @@
       "injectProperties": true,
       "instanceScope": "per-lifetime-scope"
     },
-    {
-      "type": "OrientaTFG.User.Core.Utils.StorageClient.StorageClient, OrientaTFG.User.Core",
-      "services": [
-        {
-          "type": "OrientaTFG.User.Core.Utils.StorageClient.IStorageClient, OrientaTFG.User.Core"
-        }
-      ],
-      "injectProperties": true,
-      "instanceScope": "per-lifetime-scope"
-    },
     // OrientaTFG.Shared.Infrastructure
     {
       "type": "OrientaTFG.Shared.Infrastructure.Repository.Repository`1[[OrientaTFG.Shared.Infrastructure.Model.Student, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure",
@@ -67,6 +57,36 @@
       "services": [
         {
           "type": "OrientaTFG.Shared.Infrastructure.Repository.IRepository`1[[OrientaTFG.Shared.Infrastructure.Model.Administrator, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure"
+        }
+      ],
+      "injectProperties": true,
+      "instanceScope": "per-lifetime-scope"
+    },
+    {
+      "type": "OrientaTFG.Shared.Infrastructure.Repository.Repository`1[[OrientaTFG.Shared.Infrastructure.Model.Department, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure",
+      "services": [
+        {
+          "type": "OrientaTFG.Shared.Infrastructure.Repository.IRepository`1[[OrientaTFG.Shared.Infrastructure.Model.Department, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure"
+        }
+      ],
+      "injectProperties": true,
+      "instanceScope": "per-lifetime-scope"
+    },
+    {
+      "type": "OrientaTFG.Shared.Infrastructure.Repository.Repository`1[[OrientaTFG.Shared.Infrastructure.Model.StudentAlertConfiguration, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure",
+      "services": [
+        {
+          "type": "OrientaTFG.Shared.Infrastructure.Repository.IRepository`1[[OrientaTFG.Shared.Infrastructure.Model.StudentAlertConfiguration, OrientaTFG.Shared.Infrastructure]], OrientaTFG.Shared.Infrastructure"
+        }
+      ],
+      "injectProperties": true,
+      "instanceScope": "per-lifetime-scope"
+    },
+    {
+      "type": "OrientaTFG.Shared.Infrastructure.Utils.StorageClient.StorageClient, OrientaTFG.Shared.Infrastructure",
+      "services": [
+        {
+          "type": "OrientaTFG.Shared.Infrastructure.Utils.StorageClient.IStorageClient, OrientaTFG.Shared.Infrastructure"
         }
       ],
       "injectProperties": true,

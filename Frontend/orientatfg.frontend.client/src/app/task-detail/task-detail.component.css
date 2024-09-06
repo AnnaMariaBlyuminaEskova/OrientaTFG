@@ -1,0 +1,47 @@
+.description-input {
+  border: 2px solid rgba(12, 148, 166, 1);
+  background-color: rgba(12, 148, 166, 0.1);
+  font-size: 1rem;
+  width: 99.5%;
+  margin-bottom: 1em;
+  height: 8em;
+  resize: none;
+  font-family: Arial;
+}
+
+.task-title {
+  background-color: #e8e6e8;
+  padding: 1em;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.comment-input-container, .comment-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+
+.custom-button.submit-button {
+  align-self: flex-end;
+}
+
+.comment-left {
+  align-self: flex-start;
+  background-color: #e8e6e8;
+  border: 2px solid lightgrey;
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 1em;
+  width: 40%;
+}
+
+.comment-right {
+  align-self: flex-end;
+  background-color: rgba(12, 148, 166, 0.1);
+  border: 2px solid rgba(12, 148, 166, 1);
+  border-radius: 8px;
+  padding: 10px;
+  margin-bottom: 1em;
+  width: 40%;
+}

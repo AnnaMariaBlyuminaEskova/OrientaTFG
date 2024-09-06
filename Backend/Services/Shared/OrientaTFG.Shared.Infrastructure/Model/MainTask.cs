@@ -81,4 +81,10 @@ public class MainTask : BaseModel
     [ForeignKey(nameof(StatusId))]
     [InverseProperty(nameof(Model.MainTaskStatus.MainTasks))]
     public virtual MainTaskStatus MainTaskStatus { get; set; } = null!;
+
+    /// <summary>
+    /// Gets or sets the main task's comments
+    /// </summary>
+    [InverseProperty(nameof(MainTask))]
+    public virtual ICollection<Comment>? Comments { get; set; }
 }

@@ -1,0 +1,63 @@
+.summary {
+  border: 3px solid #0c94a6;
+  width: 70%;
+  margin: 20px auto;
+  border-radius: 20px;
+  background-color: rgba(12, 148, 166, 0.1);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+  .summary h2 {
+    text-align: center;
+    color: #0c94a6;
+  }
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.left, .right {
+  flex: 1;
+  margin: 0 10px;
+}
+
+  .left p, .right p {
+    margin: 5px 0;
+    display: flex;
+    align-items: center; 
+  }
+
+.info-row {
+  /*/border-top: 3px solid #0c94a6;*/
+}
+
+
+.progress-cell {
+  background-color: lightgreen;
+}
+
+.circle {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 5px; 
+}
+
+.text {
+  vertical-align: middle; 
+}
+
+.subtask {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.space-right {
+  margin-right: 20px;
+}
+

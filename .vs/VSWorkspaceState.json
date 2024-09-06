@@ -2,8 +2,9 @@
   "ExpandedNodes": [
     "",
     "\\Backend",
-    "\\Frontend"
+    "\\Frontend",
+    "\\Frontend\\orientatfg.frontend.client"
   ],
-  "SelectedNode": "\\Frontend",
+  "SelectedNode": "\\Frontend\\orientatfg.frontend.client\\angular.json",
   "PreviewInSolutionExplorer": false
 }

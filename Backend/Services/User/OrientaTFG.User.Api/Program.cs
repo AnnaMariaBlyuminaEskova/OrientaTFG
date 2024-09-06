@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using OrientaTFG.Shared.Infrastructure.DBContext;
 using OrientaTFG.Shared.Infrastructure.Enums;
+using System.Reflection;
 using System.Security.Claims;
 
 // Create a new web application builder with the provided command line arguments
@@ -67,7 +68,7 @@ builder.Services.AddAuthorization(options =>
 // Configure Swagger for the service collection
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("v1", new OpenApiInfo { Title = "TFG Api", Version = "v1" });
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "User Api", Version = "v1" });
 
     // Add JWT security definition to Swagger
     var securityScheme = new OpenApiSecurityScheme
@@ -96,6 +97,10 @@ builder.Services.AddSwaggerGen(c =>
             new string[] { }
         }
     });
+
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
 });
 
 // Add Application Insights
